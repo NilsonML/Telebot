@@ -57,7 +57,7 @@ async def main():
             for page in range(1,quantity_of_page+1):
                 
                 url_num_page = f"{url}?page={page}"
-                response = requests.get(url)
+                response = requests.get(url_num_page)  # было requests.get(url): всегда грузилась 1-я страница
                 sleep(2)
                 soup = BeautifulSoup(response.text, 'html.parser')
                 recipes = soup.find_all('div', class_="css-m0u77r")

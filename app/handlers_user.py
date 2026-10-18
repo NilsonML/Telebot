@@ -11,7 +11,7 @@ from app.keyboards import markup
 from aiogram.types import Message
 
 import app.keyboards as kb
-import app.database.requests as rq
+import app.database.requests_for_users as rq
 import logging
 
 logger = logging.getLogger(__name__)
