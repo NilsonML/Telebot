@@ -1,0 +1,12 @@
+aiogram>=3.4
+python-dotenv>=1.0
+SQLAlchemy>=2.0
+aiosqlite>=0.19
+APScheduler>=3.10,<4
+openai>=1.0
+tzdata>=2024.1        # база часовых поясов для zoneinfo (на Windows без неё ZoneInfo не работает)
+
+# только для app/pircer_for_bot.py
+requests>=2.31
+beautifulsoup4>=4.12
+pandas>=2.0

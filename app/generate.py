@@ -1,7 +1,10 @@
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 AI_TOKEN = (os.getenv('AI_TOKEN'))
@@ -19,6 +22,6 @@ async def ai_generate(text: str):
       {"role": "user", "content": text}
     ]
   )
-  print(completion)
+  logger.debug("Ответ модели: %s", completion)
   return completion.choices[0].message.content
 

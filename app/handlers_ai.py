@@ -11,7 +11,7 @@ from aiogram import F
 from app.handlers_user import cpfc
 from aiogram.enums import ParseMode
 
-import app.database.requests as rq
+import app.database.requests_for_users as rq
 import logging
 
 class Gen(StatesGroup):
@@ -53,16 +53,17 @@ async def generating(message: Message, state: FSMContext):
         logger.info(
             "Текст для ИИ успешно создан"
         )
-    except Exception as e:
-        logger.error(
-            "Текст для ИИ не создан!!!")
+    except Exception:
+        # Без return дальше был бы NameError: text_for_ii не определён
+        logger.exception("Текст для ИИ не создан")
+        await message.answer("Не удалось составить запрос. Проверьте, что анкета заполнена.")
+        return
     
     try:
         await state.set_state(Gen.wait)
         responce = await ai_generate(text_for_ii)
         for i in range(0, len(responce), max_len):
             part = responce[i:i + max_len]
-            await message.answer("**Apple, ban**", parse_mode="MarkdownV2")
             await message.answer(escape_markdown(part), parse_mode="MarkdownV2")
         logger.info(
             "Текст пользователю успешно отправлен"
